@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>Training Assignment</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>REST</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+			<init-param>
+				<param-name>javax.ws.rs.Application</param-name>
+				<param-value>com.ta.MyApplication</param-value>
+			</init-param>
+			<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>com.ta.service</param-value>
+		</init-param>
+		<init-param>
+        <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+        			<param-value>com.ta.framework.CORSFilter</param-value>
+    </init-param>
+		<init-param>
+			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>REST</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>SqlInjectFilter</filter-name>
+		<filter-class>com.ta.filters.SqlInjectFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SqlInjectFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+</web-app>
